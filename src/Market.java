@@ -17,10 +17,13 @@ public class Market implements IQueueBehaviour {
         if (!buyer.getInQueue() && buyer.getOrder() != null) {
             buyers.add(buyer);
             buyer.setInQueue(true);
+        } else {
+            buyers.remove(buyer);
+            buyer.setInQueue(false);
         }
     }
 
-    public Buyer getBuyer() {
+    public Buyer getNextBuyer() {
 
         return buyers.pollFirst();
     }

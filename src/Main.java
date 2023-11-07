@@ -7,10 +7,10 @@ public class Main {
         Product p2 = new Product("Молоко", 5);
         Product p3 = new Product("Сок", 20);
         Product p4 = new Product("Йогурт", 10);
+
         products.add(p1);
         products.add(p2);
         products.add(p3);
-
 
         Market market = new Market(products);
         Buyer b1 = new Buyer("Покупатель1");
@@ -22,6 +22,7 @@ public class Main {
 
 
         Integer orderCount = 0;
+        b1.setOrder(new Order(orderCount++, p3.name, 1, false));
         b2.setOrder(new Order(orderCount++, p1.name, 1, false));
         b3.setOrder(new Order(orderCount++, p2.name, 1, false));
         b4.setOrder(new Order(orderCount++, p4.name, 2, false));
@@ -33,12 +34,11 @@ public class Main {
         market.marketBehaviour(b4);
 
         Buyer b; // текущий покупатель в очереди
-        //настала очередь
-
-        b = market.getBuyer();
+        //очередь пошла
+        b = market.getNextBuyer();
         while (b != null) {
             market.update(b.getOrder());
-            b = market.getBuyer();
+            b = market.getNextBuyer();
         }
 
 
