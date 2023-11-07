@@ -28,6 +28,11 @@ public class Market implements IQueueBehaviour {
 
     @Override
     public void update(Order order) {
-
+        for (Product product: products) {
+            if (product.name.equals(order.product)) {
+                product.setQuantity( product.getQuantity() - order.quantity);
+                order.setIssue(true);
+            }
+        }
     }
 }

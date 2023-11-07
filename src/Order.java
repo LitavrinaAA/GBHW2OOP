@@ -10,4 +10,8 @@ public class Order {
         this.quantity = quantity;
         this.isIssue = isIssue;
     }
+
+    public void setIssue(Boolean issue) {
+        isIssue = issue;
+    }
 }
