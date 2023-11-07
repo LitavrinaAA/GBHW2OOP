@@ -30,8 +30,12 @@ public class Market implements IQueueBehaviour {
     public void update(Order order) {
         for (Product product: products) {
             if (product.name.equals(order.product)) {
-                product.setQuantity( product.getQuantity() - order.quantity);
-                order.setIssue(true);
+                if (product.getQuantity() >= order.quantity) {
+                    product.setQuantity(product.getQuantity() - order.quantity);
+                    order.setIssue(true);
+                } else {
+                    System.out.println("Не могу выдать заказ. Недостаточное количество товара");
+                }
             }
         }
     }

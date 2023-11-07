@@ -27,6 +27,13 @@ public class Main {
         market.marketBehaviour(b1);
         market.marketBehaviour(b5);
 
+        Integer orderCount = 0;
+        b2.setOrder(new Order(orderCount++, p1.name, 1, false));
+        //настала очередь
+        market.update(b2.getOrder());
+        market.update(b3.getOrder());
+
+
 
     }
 }

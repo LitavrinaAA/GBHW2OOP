@@ -3,6 +3,8 @@ public class Buyer {
     private Long indexQueue;
     private Boolean isInQueue;
 
+    private Order order = null;
+
 
     public Buyer(String name) {
         this.name = name;
@@ -33,5 +35,13 @@ public class Buyer {
 
     public void setInQueue(Boolean inQueue) {
         isInQueue = inQueue;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }
