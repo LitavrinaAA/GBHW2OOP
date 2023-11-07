@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-       Set<Product> products = new HashSet<>();
+        Set<Product> products = new HashSet<>();
         Product p1 = new Product("Сосиски", 10);
         Product p2 = new Product("Молоко", 5);
         Product p3 = new Product("Сок", 20);
@@ -12,8 +12,6 @@ public class Main {
         products.add(p3);
 
 
-
-
         Market market = new Market(products);
         Buyer b1 = new Buyer("Покупатель1");
         Buyer b2 = new Buyer("Покупатель2");
@@ -21,18 +19,27 @@ public class Main {
         Buyer b4 = new Buyer("Покупатель4");
         Buyer b5 = new Buyer("Покупатель5");
 
+
+
+        Integer orderCount = 0;
+        b2.setOrder(new Order(orderCount++, p1.name, 1, false));
+        b3.setOrder(new Order(orderCount++, p2.name, 1, false));
+        b4.setOrder(new Order(orderCount++, p4.name, 2, false));
+
         market.marketBehaviour(b1);
         market.marketBehaviour(b2);
         market.marketBehaviour(b3);
         market.marketBehaviour(b1);
-        market.marketBehaviour(b5);
+        market.marketBehaviour(b4);
 
-        Integer orderCount = 0;
-        b2.setOrder(new Order(orderCount++, p1.name, 1, false));
+        Buyer b; // текущий покупатель в очереди
         //настала очередь
-        market.update(b2.getOrder());
-        market.update(b3.getOrder());
 
+        b = market.getBuyer();
+        while (b != null) {
+            market.update(b.getOrder());
+            b = market.getBuyer();
+        }
 
 
     }

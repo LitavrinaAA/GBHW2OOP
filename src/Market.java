@@ -1,10 +1,10 @@
 import java.util.*;
 
 public class Market implements IQueueBehaviour {
-    Map<Long,Buyer> buyers = new HashMap();
+    LinkedList<Buyer> buyers = new LinkedList<>();
     Set<Product> products;
 
-    Long countQueue = 0L;
+
 
     public Market(Set<Product> products) {
         System.out.println("Магазин открыт!");
@@ -14,16 +14,15 @@ public class Market implements IQueueBehaviour {
 
     @Override
     public void marketBehaviour(Buyer buyer) {
-        if (!buyer.getInQueue()) {
-            countQueue ++;
-            buyers.put(countQueue, buyer);
+        if (!buyer.getInQueue() && buyer.getOrder() != null) {
+            buyers.add(buyer);
             buyer.setInQueue(true);
-            buyer.setIndexQueue( countQueue );
-        } else{
-            buyers.remove(buyer.getIndexQueue());
-            buyer.setIndexQueue(-1L);
-            buyer.setInQueue(false);
         }
+    }
+
+    public Buyer getBuyer() {
+
+        return buyers.pollFirst();
     }
 
     @Override
@@ -33,6 +32,7 @@ public class Market implements IQueueBehaviour {
                 if (product.getQuantity() >= order.quantity) {
                     product.setQuantity(product.getQuantity() - order.quantity);
                     order.setIssue(true);
+                    System.out.println(order.product + order.quantity + "Товар выдан");
                 } else {
                     System.out.println("Не могу выдать заказ. Недостаточное количество товара");
                 }
